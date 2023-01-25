@@ -52,7 +52,7 @@ curl -X 'GET' \
 * Создание короткой ссылки
 ```shell
 curl -X 'POST' \
-  'http://localhost:8080/api/v1/balances/{user_id}/credit' \
+  'http://localhost:8080/create' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -67,3 +67,8 @@ ___
 # Для тестирования
 > make test-cover
 ```
+Для создания коротких ссылок был выбран алгоритм хэширования xxHash версии xxh3
+На основании скорости работы и количестве коллизий (Рассматривался так же вариант от Google - city64)
+
+> https://github.com/Cyan4973/xxHash
+> https://github.com/Cyan4973/xxHash/wiki/Collision-ratio-comparison

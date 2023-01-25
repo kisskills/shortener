@@ -9,6 +9,8 @@ require (
 	github.com/knadh/koanf v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
+	github.com/zeebo/xxh3 v1.0.2
+	github.com/zentures/cityhash v0.0.0-20131128155616-cdd6a94144ab
 	go.uber.org/zap v1.24.0
 	google.golang.org/genproto v0.0.0-20230125152338-dcaf20b6aeaa
 	google.golang.org/grpc v1.52.1
@@ -22,6 +24,7 @@ require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/puddle/v2 v2.1.2 // indirect
+	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
