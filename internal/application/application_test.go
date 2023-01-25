@@ -9,6 +9,8 @@ import (
 
 func TestApplication_Stop(t *testing.T) {
 	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
 	storage := mock.NewMockStorage(ctrl)
 	storage.EXPECT().Close()
 
