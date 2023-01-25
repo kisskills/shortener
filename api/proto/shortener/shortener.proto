@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package shortener;
+
+import "google/api/annotations.proto";
+
+option go_package = "./internal/proto_gen/shortener";
+
+service Shortener {
+  rpc CreateShortLink(NewLinkRequest) returns (NewLinkResponse) {
+    option (google.api.http) = {
+      post: "/create"
+      body: "*"
+    };
+  }
+  rpc GetOriginalLink(GetLinkRequest) returns (GetLinkResponse) {
+    option (google.api.http) = {
+      get: "/get/{link}"
+    };
+  }
+}
+
+message NewLinkRequest {
+  string link = 1;
+}
+
+message NewLinkResponse {
+  string shortLink = 1;
+}
+
+message GetLinkRequest {
+  string link = 1;
+}
+
+message GetLinkResponse {
+  string origLink = 1;
+}

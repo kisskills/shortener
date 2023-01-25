@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  database:
+    container_name: "postgres"
+    image: postgres
+    profiles:
+      - postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+      - ./internal/deploy/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  server_postgres:
+    container_name: "server_postgres"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    profiles:
+      - postgres
+    environment:
+      - STORAGE_MODE=postgres
+    env_file: .env
+    networks:
+      - default
+    ports:
+      - "6565:6565"
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+  server_inmemory:
+    container_name: "server_memory"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    profiles:
+      - inmemory
+    environment:
+      - STORAGE_MODE=inmemory
+    env_file: .env
+    networks:
+      - default
+    ports:
+      - "6565:6565"
+      - "8080:8080"
+volumes:
+  data:
