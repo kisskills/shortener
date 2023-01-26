@@ -20,7 +20,7 @@ func Hasher(originalLink string) string {
 	}
 
 	var highBytes []byte
-	for len(lowBytes) < 10 {
+	for i := len(lowBytes); i < 10; i++ {
 		highBytes = append(highBytes, alphabet[0])
 	}
 
