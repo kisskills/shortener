@@ -11,7 +11,7 @@ import (
 type InMemoryStorage struct {
 	log  *zap.SugaredLogger
 	data map[string]string
-	mu   *sync.Mutex
+	mu   *sync.RWMutex
 }
 
 func NewInMemoryStorage(log *zap.SugaredLogger) (*InMemoryStorage, error) {
@@ -22,7 +22,7 @@ func NewInMemoryStorage(log *zap.SugaredLogger) (*InMemoryStorage, error) {
 	return &InMemoryStorage{
 		log:  log,
 		data: make(map[string]string),
-		mu:   &sync.Mutex{},
+		mu:   &sync.RWMutex{},
 	}, nil
 }
 
@@ -35,7 +35,7 @@ func (in *InMemoryStorage) CreateShortLink(_ context.Context, shortLink string, 
 
 	if _, ok := in.data[shortLink]; ok {
 		in.log.Error(entities.ErrAlreadyExists)
-		
+
 		return entities.ErrAlreadyExists
 	}
 
@@ -44,6 +44,9 @@ func (in *InMemoryStorage) CreateShortLink(_ context.Context, shortLink string, 
 	return nil
 }
 func (in *InMemoryStorage) GetOriginalLink(_ context.Context, shortLink string) (string, error) {
+	in.mu.RLock()
+	defer in.mu.RUnlock()
+
 	originalLink, ok := in.data[shortLink]
 	if !ok {
 		in.log.Error(entities.ErrNotFound)

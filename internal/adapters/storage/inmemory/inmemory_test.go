@@ -25,7 +25,7 @@ func TestInMemoryStorage_CreateShortLink(t *testing.T) {
 			name: "OK",
 			args: args{
 				in0:          context.Background(),
-				shortLink:    "google.com",
+				shortLink:    "kwUIdA9TOq",
 				originalLink: "google.com",
 			},
 			wantErr:     false,
@@ -35,7 +35,7 @@ func TestInMemoryStorage_CreateShortLink(t *testing.T) {
 			name: "Expected already exists error",
 			args: args{
 				in0:          context.Background(),
-				shortLink:    "google.com",
+				shortLink:    "kwUIdA9TOq",
 				originalLink: "google.com",
 			},
 			wantErr:     true,
