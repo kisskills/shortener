@@ -35,8 +35,7 @@ func (in *InMemoryStorage) CreateShortLink(_ context.Context, shortLink string, 
 
 	if _, ok := in.data[shortLink]; ok {
 		in.log.Error(entities.ErrAlreadyExists)
-
-		//return errors.WithMessage(entities.ErrInternal, "link already exist")
+		
 		return entities.ErrAlreadyExists
 	}
 
